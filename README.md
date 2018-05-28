@@ -1,6 +1,6 @@
 # Jäsenrekisteri/harjoituskäyntiseuranta
 
-Sovelluksella pidetään kirjaa urheiluseuran jäsenistä. Jäsenistä kerätään erilaista tietoa, kuten vyöarvokorotukset, koulutukset, harjoitusryhmät ja harjoituskäynnit. Tietoja voidaan tarkastella käyttöoikeuksista riippuen erilasiten yhteenvetonäkymien avulla.
+Sovelluksella pidetään kirjaa urheiluseuran jäsenistä. Jäsenistä kerätään erilaista tietoa, kuten vyöarvokorotukset, koulutukset, harjoitusryhmät ja harjoituskäynnit. Tietoja voidaan tarkastella käyttöoikeuksista riippuen erilaisten yhteenvetonäkymien avulla.
 
 * Käyttäjä kirjautuu
 * Osallistujien tiedot
