@@ -2,6 +2,8 @@
 
 Sovelluksella pidetään kirjaa urheiluseuran jäsenistä. Jäsenistä kerätään erilaista tietoa, kuten vyöarvokorotukset, koulutukset, harjoitusryhmät ja harjoituskäynnit. Tietoja voidaan tarkastella käyttöoikeuksista riippuen erilaisten yhteenvetonäkymien avulla.
 
+[demo](https://polar-plains-24269.herokuapp.com/)
+
 [tietokantakaaviohahmotelma](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/tietokantakaavio.jpg)
 
 [käyttötapaukset](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/userstories.md)
