@@ -6,10 +6,20 @@
   </head>
 
   <body>
-	<h1>Jäsenrekisteri</h1>
+  <h1>Jäsenrekisteri</h1>
+  {% if current_user.is_authenticated %}
+  <p>
+    Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+  </p>
+  {% else %}
+  <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+  {% endif %}
+
 	<ul>
 		<li><a href="{{ url_for('members_index') }}">List members</a></li>
-		<li><a href="{{ url_for('members_form') }}">Add a member</a></li>
+    <li><a href="{{ url_for('members_form') }}">Add a member</a></li>
+    <li><a href="{{ url_for('groups_index') }}">List groups</a></li>
+		<li><a href="{{ url_for('groups_form') }}">Add a group</a></li>
 	</ul>
 
     {% block body %}

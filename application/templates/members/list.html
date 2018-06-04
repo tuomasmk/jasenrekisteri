@@ -5,9 +5,16 @@
     <tr>
       <th>Members</th>
     </tr>
+    <tr>
+      <td>Firstname</td>
+      <td>Lastname</td>
+      <td>Group</td>
+    </tr>
     {% for member in members %}
     <tr>
-      <td>{{ member.name }}</td>
+      <td>{{ member.firstnames }}</td>
+      <td>{{ member.lastname }}</td>
+      <td>{{ member.group_id }}</td>
     </tr>
     {% endfor %}
   </table>
