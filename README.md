@@ -4,6 +4,8 @@ Sovelluksella pidetään kirjaa urheiluseuran jäsenistä. Jäsenistä kerätä�
 
 [demo](https://polar-plains-24269.herokuapp.com/)
 
+tunnukset: username = testi, password = testi
+
 [tietokantakaaviohahmotelma](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/tietokantakaavio.jpg)
 
 [käyttötapaukset](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/userstories.md)
