@@ -9,13 +9,17 @@
       <td>Firstname</td>
       <td>Lastname</td>
       <td>Group</td>
+      <td>Details</td>
     </tr>
-    {% for member in members %}
+    {% if members_w_group is defined %}
+    {% for member in members_w_group %}
     <tr>
       <td>{{ member.firstnames }}</td>
       <td>{{ member.lastname }}</td>
-      <td>{{ member.group_id }}</td>
+      <td>{{ member.groupName }}</td>
+      <td><a href="{{ member.id }}">Add participation</a></td>
     </tr>
     {% endfor %}
+    {% endif %}
   </table>
 {% endblock %}

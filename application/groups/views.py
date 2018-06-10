@@ -7,7 +7,7 @@ from application.groups.forms import GroupForm
 @app.route("/groups/", methods=["GET"])
 @login_required
 def groups_index():
-	return render_template("groups/list.html", groups = Group.query.all())
+	return render_template("groups/list.html", groups = Group.find_group_member_count())
 
 @app.route("/groups/new/")
 @login_required

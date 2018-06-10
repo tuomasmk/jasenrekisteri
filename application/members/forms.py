@@ -1,7 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators
+from wtforms.fields import DateField, HiddenField, IntegerField
 from application.groups.models import Group
 from wtforms_sqlalchemy.fields import QuerySelectField
+from wtforms.validators import DataRequired
+from wtforms.widgets import HiddenInput
+import datetime
 import wtforms_sqlalchemy.fields as f                                                                                                                                                                                                                                                                    
 def get_pk_from_identity(obj):
     cls, key = f.identity_key(instance=obj)[:2]
@@ -21,6 +25,13 @@ class MemberForm(FlaskForm):
 
 class MemberGroupForm(FlaskForm):
 	groups = QuerySelectField(query_factory=getGroups, allow_blank=False)
+
+	class Meta:
+		csrf = False
+
+class MemberPracticeForm(FlaskForm):
+	date = DateField('Date', default=datetime.datetime.now().date())
+	member_id = IntegerField('Id', validators=[DataRequired()])
 
 	class Meta:
 		csrf = False

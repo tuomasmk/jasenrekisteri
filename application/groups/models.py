@@ -1,13 +1,10 @@
 from application import db
+from application.models import Base
+from sqlalchemy.sql import text
 
-class Group(db.Model):
+class Group(Base):
 
     __tablename__ = "groups"
-
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-        onupdate=db.func.current_timestamp())
 
     name = db.Column(db.String(144), nullable=False)
     members = db.relationship("Member", backref='groups', lazy=True)
@@ -23,3 +20,18 @@ class Group(db.Model):
 
     def __init__(self, name):
         self.name = name
+
+    @staticmethod
+    def find_group_member_count():
+        stmt = text("SELECT Groups.id, Groups.name, COUNT(Member.id) "
+            + "FROM Member, Groups "
+            + "WHERE Member.group_id=Groups.id")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], 
+                "name":row[1],
+                "members":row[2]})
+        
+        return response

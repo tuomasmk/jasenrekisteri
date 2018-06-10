@@ -3,11 +3,13 @@
 {% block body %}
   <table>
     <tr>
-      <th>Groups</th>
+      <th>Group</th>
+      <th>Members</th>
     </tr>
     {% for group in groups %}
     <tr>
       <td>{{ group.name }}</td>
+      <td>{{ group.members }}</td>
     </tr>
     {% endfor %}
   </table>
