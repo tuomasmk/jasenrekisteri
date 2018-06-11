@@ -7,7 +7,7 @@ class Practice(Base):
     date = db.Column(db.Date, nullable=False, default=db.func.date())
     member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False)
 
-#    UniqueConstraint('date', 'member_id')
+    UniqueConstraint('date', 'member_id')
 #    group_id = db.relationship("Group", backref='groups', lazy=True)
 #    members = db.relationship("Member", 
 #        secondary=practice_member_table,

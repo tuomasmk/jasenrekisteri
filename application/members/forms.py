@@ -31,7 +31,7 @@ class MemberGroupForm(FlaskForm):
 
 class MemberPracticeForm(FlaskForm):
 	date = DateField('Date', default=datetime.datetime.now().date())
-	member_id = IntegerField('Id', validators=[DataRequired()])
+	member_id = HiddenField('Id', validators=[DataRequired()])
 
 	class Meta:
 		csrf = False

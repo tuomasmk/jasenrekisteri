@@ -45,7 +45,6 @@ def members_practices(id):
 	form = MemberPracticeForm()
 	form.member_id.data = id
 
-	print("\nMember index: ", form.member_id.data)
 	return render_template('members/practices.html', 
 		practices = Member.find_member_and_practices(id), form=form)
 
@@ -57,8 +56,6 @@ def member_practices_create():
 		return render_template("members/practices.html", 
 			form=form)
 
-	print("\nPractice member_id: ", form.member_id.data)
-	print("\nDate: ", form.date.data)
 	p = Practice(form.date.data, form.member_id.data)
 
 	db.session().add(p)
