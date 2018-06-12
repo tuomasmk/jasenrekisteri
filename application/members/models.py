@@ -42,7 +42,7 @@ class Member(Base):
         stmt = text("SELECT member.id, member.firstnames, member.lastname, "
             + "COUNT(practice.id) FROM member "
             + "LEFT JOIN practice ON member.id = practice.member_id "
-            + "WHERE member.id = :id "
+            + "WHERE member.id = :id GROUP BY member.id"
             ).params(id=id)
         res = db.engine.execute(stmt)
         
