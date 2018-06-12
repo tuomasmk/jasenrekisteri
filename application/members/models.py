@@ -23,9 +23,9 @@ class Member(Base):
 
     @staticmethod
     def find_members_with_group():
-        stmt = text("SELECT Member.id, Member.firstnames, "
-            + "Member.lastname, Groups.name FROM Member, Groups "
-            + "WHERE Member.group_id=Groups.id")
+        stmt = text("SELECT member.id, member.firstnames, "
+            + "member.lastname, groups.name FROM member, groups "
+            + "WHERE member.group_id=groups.id")
         res = db.engine.execute(stmt)
 
         response = []
@@ -39,10 +39,10 @@ class Member(Base):
 
     @staticmethod
     def find_member_and_practices(id):
-        stmt = text("SELECT Member.id, Member.firstnames, Member.lastname, "
-            + "COUNT(Practice.id) FROM Member "
-            + "LEFT JOIN Practice ON Member.id = Practice.member_id "
-            + "WHERE Member.id = :id "
+        stmt = text("SELECT member.id, member.firstnames, member.lastname, "
+            + "COUNT(practice.id) FROM member "
+            + "LEFT JOIN practice ON member.id = practice.member_id "
+            + "WHERE member.id = :id "
             ).params(id=id)
         res = db.engine.execute(stmt)
         

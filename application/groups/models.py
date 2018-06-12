@@ -23,9 +23,10 @@ class Group(Base):
 
     @staticmethod
     def find_group_member_count():
-        stmt = text("SELECT Groups.id, Groups.name, COUNT(Member.id) "
-            + "FROM Member, Groups "
-            + "WHERE Member.group_id=Groups.id")
+        stmt = text("SELECT groups.id, groups.name, COUNT(member.id) "
+            + "FROM groups LEFT JOIN member "
+            + "ON member.group_id=groups.id "
+            + "GROUP BY groups.id")
         res = db.engine.execute(stmt)
 
         response = []
