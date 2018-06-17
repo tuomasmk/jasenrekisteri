@@ -4,7 +4,7 @@ from flask_login import login_required
 from application.members.models import Member
 from application.members.forms import MemberForm, MemberGroupForm, MemberPracticeForm
 from application.practice.models import Practice
-from datetime import date
+from datetime import date, timedelta
 
 @app.route("/members/", methods=["GET"])
 @login_required
@@ -40,13 +40,16 @@ def members_group():
 	form = MemberGroupForm()
 	return render_template('members/form.html', form=form)
 
-@app.route("/members/<id>", methods=["GET"])
+@app.route("/members/<int:id>", methods=["GET"])
 def members_practices(id):
 	form = MemberPracticeForm()
 	form.member_id.data = id
-
+	
 	return render_template('members/practices.html', 
-		practices = Member.find_member_and_practices(id), form=form)
+		practices = Member.find_practices_for_member(id), 
+		practiceCount = Member.find_member_and_practices(id), 
+		deleteLimit = str(date.today() - timedelta(30)),
+		form=form)
 
 @app.route("/members/practices", methods=["POST"])
 def member_practices_create():
@@ -60,4 +63,16 @@ def member_practices_create():
 
 	db.session().add(p)
 	db.session().commit()
+	return redirect(url_for("members_index"))
+
+@app.route("/members/delete/<int:id>", methods=["POST"])
+def members_delete(id):
+	m = Member.query.filter_by(id=id).first()
+	print(m.id)
+	print(m.lastname)
+	print(m.firstnames)
+	if not m is None:
+		db.session().delete(m)
+		db.session().commit()
+
 	return redirect(url_for("members_index"))

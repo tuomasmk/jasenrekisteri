@@ -21,6 +21,8 @@ from application.members import views
 from application.groups import models
 from application.groups import views
 
+from application.practice import views
+
 from application.auth import models
 from application.auth import views
 

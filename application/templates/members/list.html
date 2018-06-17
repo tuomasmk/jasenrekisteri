@@ -17,7 +17,13 @@
       <td>{{ member.firstnames }}</td>
       <td>{{ member.lastname }}</td>
       <td>{{ member.groupName }}</td>
-      <td><a href="{{ member.id }}">Add participation</a></td>
+      <td><a href="{{ member.id }}">Practices</a></td>
+      <td>
+        <form method="POST" action="{{ url_for('members_delete', id=member.id) }}"
+          onsubmit="return confirm('This will permanently delete the member and all of its practices. Do you really want to delete?');">
+          <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+        </form>
+      </td>
     </tr>
     {% endfor %}
     {% endif %}

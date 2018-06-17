@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators
-from wtforms.fields import DateField, HiddenField, IntegerField
+from wtforms.fields import HiddenField, IntegerField
+from wtforms.fields.html5 import DateField
 from application.groups.models import Group
 from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired

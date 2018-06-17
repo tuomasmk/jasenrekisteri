@@ -11,7 +11,7 @@ class Member(Base):
     lastname = db.Column(db.String(144), nullable=False)
 
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
-    practices = db.relationship("Practice", backref='practice', lazy=True)
+    practices = db.relationship("Practice", cascade="all, delete, delete-orphan", backref='practice', lazy=True)
 #    practices = db.relationship("Practice",
 #        secondary=practice_member_table,
 #        back_populates="Members")
@@ -50,5 +50,22 @@ class Member(Base):
         for row in res:
             response.append({"id":row[0], "firstnames":row[1],
                 "lastname":row[2], "practiceCount":row[3]})
+        
+        return response
+
+    @staticmethod
+    def find_practices_for_member(id):
+        stmt = text("SELECT practice.id, practice.date "
+                    + "FROM practice, member "
+                    + "WHERE practice.member_id = member.id "
+                    + "AND member.id = :id "
+                    + "ORDER BY practice.date DESC"
+                    ).params(id=id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0],
+                "date":row[1]})
         
         return response

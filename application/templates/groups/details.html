@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if members is defined %}
+<form id="form" method="POST" action="{{ url_for('groups_details', id=members[0].group_id) }}">
+  <table>
+    <tr>
+      <th>Member name</th>
+    </tr>
+    {% for member in members %}
+    <tr>
+        <td>{{ member.member_lastname }}</td>
+        <td>{{ member.member_firstnames }}</td>
+        <td><input id="{{ member.member_id }}" name="{{ member.member_id }}" type="checkbox"/></td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>Pvm</td>
+        <td><input name="date" type="date" min="2018-01-01" max="2020-12-31" value="{{ now }}"/></td>
+    </tr>
+    <tr>
+        <td><input type="submit" class="btn btn-primary" value="Add participations"/></td>
+    </tr>
+  </table>
+</form>
+{% endif %}
+{% endblock %}

@@ -10,7 +10,7 @@
         <td>Practice Count</td>
     </tr>
     {% if practices is defined %}
-    {% for member in practices %}
+    {% for member in practiceCount %}
     <tr>
         <td>{{ member.firstnames }}</td>
         <td>{{ member.lastname }}</td>
@@ -47,8 +47,28 @@
 		</tr>
 		<tr>
 			<td colspan="3">
-				<input type="submit" value="Add a new participation"/>
+				<input type="submit" class="btn btn-primary" value="Add a new participation"/>
 			</td>
 		</tr>
 </form>
+
+<table>
+    <tr>
+        <th>Practices</th>
+    </tr>
+    {% for practice in practices %}
+    <tr>
+        <td>{{ practice.date }}</td>
+        {% if practice.date >= deleteLimit %}
+        <td>
+            <form method="POST" action="{{ url_for('delete_practice', id=practice.id) }}"
+                onsubmit="return confirm('This will permanently delete the practice. Do you really want to delete it?');">
+                <input type="hidden" name="member_id" value="{{ practiceCount[0].id }}"/>
+                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+            </form>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

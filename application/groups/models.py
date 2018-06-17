@@ -36,3 +36,24 @@ class Group(Base):
                 "members":row[2]})
         
         return response
+
+    @staticmethod
+    def find_group_members(id):
+        stmt = text("SELECT groups.id, groups.name, "
+            + "member.id, member.firstnames, member.lastname "
+            + "FROM groups LEFT JOIN member "
+            + "ON member.group_id = groups.id "
+            + "WHERE groups.id = :id "
+            + "ORDER BY member.lastname"
+            ).params(id=id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"group_id":row[0],
+                "group_name":row[1],
+                "member_id":row[2],
+                "member_firstnames":row[3],
+                "member_lastname":row[4]})
+        
+        return response

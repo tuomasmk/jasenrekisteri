@@ -8,7 +8,7 @@
     </tr>
     {% for group in groups %}
     <tr>
-      <td>{{ group.name }}</td>
+      <td><a href="{{ url_for('groups_details', id=group.id) }}">{{ group.name }}</a></td>
       <td>{{ group.members }}</td>
     </tr>
     {% endfor %}

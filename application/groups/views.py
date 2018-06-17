@@ -3,6 +3,8 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_required
 from application.groups.models import Group
 from application.groups.forms import GroupForm
+from application.practice.models import Practice
+from datetime import datetime
 
 @app.route("/groups/", methods=["GET"])
 @login_required
@@ -28,3 +30,18 @@ def groups_create():
 	db.session().commit()
 
 	return redirect(url_for("groups_index"))
+
+@app.route("/groups/<id>", methods=["GET", "POST"])
+def groups_details(id):
+
+    if request.method == "POST":
+        form = request.form
+        for key in form:
+            if key != "date":
+                p = Practice(datetime.strptime(form["date"], "%Y-%m-%d"), int(key))
+                db.session().add(p)
+        db.session().commit()
+    return render_template("groups/details.html", 
+        members = Group.find_group_members(id),
+        now = datetime.now().date())
+    
