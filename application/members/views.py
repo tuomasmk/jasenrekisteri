@@ -48,7 +48,7 @@ def members_practices(id):
 	return render_template('members/practices.html', 
 		practices = Member.find_practices_for_member(id), 
 		practiceCount = Member.find_member_and_practices(id), 
-		deleteLimit = str(date.today() - timedelta(30)),
+		deleteLimit = date.today() - timedelta(30),
 		form=form)
 
 @app.route("/members/practices", methods=["POST"])
