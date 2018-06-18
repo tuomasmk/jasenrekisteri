@@ -1,37 +1,41 @@
-from application import app, db
-from flask import render_template, request, redirect, url_for
-from flask_login import login_required
+from flask import flash, render_template, request, redirect, url_for
+from flask_login import current_user
+
+from application import app, db, login_required
 from application.groups.models import Group
 from application.groups.forms import GroupForm
 from application.practice.models import Practice
 from datetime import datetime
 
 @app.route("/groups/", methods=["GET"])
-@login_required
+@login_required(role="ANY")
 def groups_index():
 	return render_template("groups/list.html", groups = Group.find_group_member_count())
 
 @app.route("/groups/new/")
-@login_required
+@login_required(role="ANY")
 def groups_form():
     return render_template("groups/new.html", form = GroupForm())
 
 @app.route("/groups/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def groups_create():
-	form = GroupForm(request.form)
+    error = None
+    form = GroupForm(request.form)
 
-	if not form.validate():
-		return render_template("groups/new.html", form = form)
+    if not form.validate():
+        error = 'Validation error'
+        return render_template("groups/new.html", form = form, error=error)
 
-	g = Group(form.name.data)
+    g = Group(form.name.data)
 
-	db.session().add(g)
-	db.session().commit()
+    db.session().add(g)
+    db.session().commit()
 
-	return redirect(url_for("groups_index"))
+    flash('Group added succesfully')
+    return redirect(url_for("groups_index"))
 
-@app.route("/groups/<id>", methods=["GET", "POST"])
+@app.route("/groups/<int:id>", methods=["GET", "POST"])
 def groups_details(id):
 
     if request.method == "POST":
@@ -45,3 +49,13 @@ def groups_details(id):
         members = Group.find_group_members(id),
         now = datetime.now().date())
     
+@app.route("/groups/delete/<int:id>", methods=["POST"])
+@login_required(role="ADMIN")
+def groups_delete(id):
+    g = Group.query.filter_by(id=id).first()
+    print(g.id)
+    if not g is None:
+        db.session().delete(g)
+        db.session().commit()
+    
+    return redirect(url_for("groups_index"))

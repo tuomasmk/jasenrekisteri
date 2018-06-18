@@ -5,10 +5,20 @@ from application.practice.models import Practice
 
 from sqlalchemy.sql import text
 
+class Grade(Base):
+    name = db.Column(db.String(6), nullable=False)
+    color = db.Column(db.String(20), nullable=False)
+
 class Member(Base):
-    
     firstnames = db.Column(db.String(144), nullable=False)
     lastname = db.Column(db.String(144), nullable=False)
+    grade = db.Column(db.Integer, db.ForeignKey('grade.id'))
+    email = db.Column(db.String(144))
+    phoneNumber = db.Column(db.String(20))
+    address = db.Column(db.String(144))
+    postalCode = db.Column(db.String(20))
+    country = db.Column(db.String(20))
+    city = db.Column(db.String(144))
 
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
     practices = db.relationship("Practice", cascade="all, delete, delete-orphan", backref='practice', lazy=True)
@@ -24,8 +34,15 @@ class Member(Base):
     @staticmethod
     def find_members_with_group():
         stmt = text("SELECT member.id, member.firstnames, "
-            + "member.lastname, groups.name FROM member, groups "
-            + "WHERE member.group_id=groups.id")
+            + "member.lastname, groups.id, groups.name, "
+            + "COUNT(practice.id)"
+            + "FROM member, groups "
+            + "LEFT JOIN practice "
+            + "ON member.id = practice.member_id "
+            + "WHERE member.group_id=groups.id "
+            + "GROUP BY member.id "
+            + "ORDER BY member.lastname")
+
         res = db.engine.execute(stmt)
 
         response = []
@@ -33,7 +50,8 @@ class Member(Base):
             print(row[0])
             print(row[1])
             response.append({"id":row[0], "firstnames":row[1], 
-                "lastname":row[2], "groupName":row[3]})
+                "lastname":row[2], "groupId":row[3],
+                "groupName":row[4], "practiceCount":row[5]})
         
         return response
 

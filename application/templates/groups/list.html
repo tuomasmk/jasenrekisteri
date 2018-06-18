@@ -1,15 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
+  <table class="table table-hover table-sm table-striped">
     <tr>
       <th>Group</th>
       <th>Members</th>
+      <th>Action</th>
     </tr>
     {% for group in groups %}
     <tr>
       <td><a href="{{ url_for('groups_details', id=group.id) }}">{{ group.name }}</a></td>
       <td>{{ group.members }}</td>
+      {% if group.members == 0 %}
+      <td>
+        <form method="POST" action="{{ url_for('groups_delete', id=group.id) }}"
+          onsubmit="return confirm('This will permanently delete the group. Continue?');">
+          <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+        </form>  
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>

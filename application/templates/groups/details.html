@@ -2,10 +2,12 @@
 
 {% block body %}
 {% if members is defined %}
+<h2>Member</h2>
 <form id="form" method="POST" action="{{ url_for('groups_details', id=members[0].group_id) }}">
-  <table>
+  <table class="table table-hover table-sm">
     <tr>
-      <th>Member name</th>
+      <th>Last</th>
+      <th>First</th>
     </tr>
     {% for member in members %}
     <tr>

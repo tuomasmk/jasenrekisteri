@@ -10,7 +10,6 @@ from datetime import date, timedelta
 @login_required
 def members_index():
 	return render_template("members/list.html", 
-		members = Member.query.all(), 
 		members_w_group=Member.find_members_with_group())
 
 @app.route("/members/new/")
