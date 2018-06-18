@@ -36,7 +36,7 @@ class Member(Base):
         stmt = text("SELECT member.id, member.firstnames, "
             + "member.lastname, groups.id, groups.name, "
             + "COUNT(practice.id)"
-            + "FROM member, groups "
+            + "FROM groups, member "
             + "LEFT JOIN practice "
             + "ON member.id = practice.member_id "
             + "WHERE member.group_id=groups.id "
