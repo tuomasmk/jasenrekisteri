@@ -33,14 +33,14 @@ class Member(Base):
 
     @staticmethod
     def find_members_with_group():
-        stmt = text("SELECT member.id, member.firstnames, "
-            + "member.lastname, groups.id, groups.name, "
-            + "COUNT(practice.id)"
+        stmt = text("SELECT groups.id, groups.name, "
+            + "member.id, member.firstnames, "
+            + "member.lastname, COUNT(practice.id) "
             + "FROM groups, member "
             + "LEFT JOIN practice "
             + "ON member.id = practice.member_id "
-            + "WHERE member.group_id=groups.id "
-            + "GROUP BY member.id "
+            + "WHERE groups.id=member.group_id "
+            + "GROUP BY member.id, groups.id "
             + "ORDER BY member.lastname")
 
         res = db.engine.execute(stmt)
@@ -49,9 +49,9 @@ class Member(Base):
         for row in res:
             print(row[0])
             print(row[1])
-            response.append({"id":row[0], "firstnames":row[1], 
-                "lastname":row[2], "groupId":row[3],
-                "groupName":row[4], "practiceCount":row[5]})
+            response.append({"groupId":row[0], "groupName":row[1], 
+                "id":row[2], "firstnames":row[3],
+                "lastname":row[4], "practiceCount":row[5]})
         
         return response
 
