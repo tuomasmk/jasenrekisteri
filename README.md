@@ -6,6 +6,8 @@ Sovelluksella pidetään kirjaa urheiluseuran jäsenistä. Jäsenistä kerätä�
 
 tunnukset: username = testi, password = testi
 
+[käyttö-/asennusohje](https://github.com/tuomasmk/jasenrekisteri/blob/master/user_guide.md)
+
 [tietokantakaaviohahmotelma](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/tietokantakaavio.jpg)
 
 [käyttötapaukset](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/userstories.md)
