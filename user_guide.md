@@ -5,7 +5,10 @@ Sovellus on internetpohjainen, eikä sen käyttäminen vaadi asennusta.
 
 ### Demo
 [Sovellukseen](https://polar-plains-24269.herokuapp.com/ "Jäsenrekisteri")
+
 käyttäjätunnus: testi, salsana: testi
+
+admin-tunnukset: username = admin, password = admin
 
 ### Paikallinen asennus
 TODO
