@@ -4,22 +4,14 @@
 {{ error }}
 <form method="POST" action="{{ url_for('auth_login') }}">
   <table>
+    {% for field in form %}
     <tr>
-      <td>
-	{{ form.username.label }}
-      </td>
-      <td>
-	{{ form.username }}
-      </td>
+        {% if field.type != "HiddenField" %}
+        <td>{{ field.label }}</td>
+        {% endif %}
+        <td>{{ field }}</td>
     </tr>
-    <tr>
-      <td>
-	{{ form.password.label }}
-      </td>
-      <td>
-	{{ form.password }}
-      </td>
-    </tr>
+    {% endfor %}
     <tr>
       <td colspan="2">
 	<input type="submit" value="Login"/>

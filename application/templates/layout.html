@@ -15,6 +15,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav mr-auto">
+                {% if current_user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('members_index') }} ">List members</a>
                 </li>
@@ -22,11 +23,14 @@
                   <a class="nav-link" href="{{ url_for('members_form') }} ">Add a member</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('groups_index') }} ">List groups</a>
-                  </li>
+                  <a class="nav-link" href="{{ url_for('groups_index') }} ">List groups</a>
+                </li>
+                  {% if "ADMIN" in current_user.roles() %}
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('groups_form') }} ">Add a group</a>
                   </li>
+                {% endif %}
+                {% endif %}
               </ul>
               <div class="form-inline mt-2 mt-md-0">
           {% if current_user.is_authenticated %}
@@ -37,32 +41,25 @@
               </div>
       </div>
   </nav>
-<!-- 
-  {% if current_user.is_authenticated %}
-  <p>
-    Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
-  </p>
-  {% else %}
-  <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
-  {% endif %}
 
-	<ul>
-		<li><a href="{{ url_for('members_index') }}">List members</a></li>
-    <li><a href="{{ url_for('members_form') }}">Add a member</a></li>
-    <li><a href="{{ url_for('groups_index') }}">List groups</a></li>
-		<li><a href="{{ url_for('groups_form') }}">Add a group</a></li>
-  </ul>
-  !-->
-
-  {% with messages = get_flashed_messages() %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
+      <ul class="flashes">
+        {% for category, message in messages %}
+          {% if category=="error" %}
+            {% set alertType="danger" %}
+          {% elif category=="success" %}
+            {% set alertType="success" %}
+          {% else %}
+            {% set alertType="secondary" %}
+          {% endif %}
+          <li id="alert" class="alert alert-{{alertType}} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+        {% endfor %}
       </ul>
     {% endif %}
   {% endwith %}

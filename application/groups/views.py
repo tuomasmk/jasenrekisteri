@@ -32,7 +32,7 @@ def groups_create():
     db.session().add(g)
     db.session().commit()
 
-    flash('Group added succesfully')
+    flash('Group added succesfully', 'success')
     return redirect(url_for("groups_index"))
 
 @app.route("/groups/<int:id>", methods=["GET", "POST"])

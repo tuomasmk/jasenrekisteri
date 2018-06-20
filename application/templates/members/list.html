@@ -21,12 +21,14 @@
         <td><a href="{{ url_for('groups_details', id=member.groupId)}}">{{ member.groupName }}</a></td>
         <td>{{ member.practiceCount }}</td>
         <td><a href="{{ member.id }}">Practices</a></td>
+        {% if "ADMIN" in current_user.roles() %}
         <td>
           <form method="POST" action="{{ url_for('members_delete', id=member.id) }}"
             onsubmit="return confirm('This will permanently delete the member and all of its practices. Do you really want to delete?');">
             <input type="submit" class="btn btn-danger btn-sm" value="Delete">
           </form>
         </td>
+        {% endif %}
       </tr>
     </tbody>
     {% endfor %}

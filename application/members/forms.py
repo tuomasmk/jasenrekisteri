@@ -5,7 +5,6 @@ from wtforms.fields.html5 import DateField
 from application.groups.models import Group
 from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
-from wtforms.widgets import HiddenInput
 import datetime
 import wtforms_sqlalchemy.fields as f                                                                                                                                                                                                                                                                    
 def get_pk_from_identity(obj):

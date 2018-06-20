@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<table>
+<h2>Member details</h2>
+<table id="members" class="table table-hover table-sm table-striped">
     <tr>
-        <th>Practices for</th>
-    </tr>
-        <td>Firstname</td>
-        <td>Lastname</td>
-        <td>Practice Count</td>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Practice Count</th>
     </tr>
     {% if practices is defined %}
     {% for member in practiceCount %}
@@ -21,10 +20,8 @@
 </table>
 
 <form method="POST" action="{{ url_for('member_practices_create') }}">
-	<table>
-        <tr>
-            <th>Add new practice</th>
-        </tr>
+    <strong><t3>Add new practice</t3></strong>
+    <table id="newPractice" class="table table-hover table-sm table-striped">
         <tr>
             <td>
                 {{ form.member_id }}

@@ -2,7 +2,7 @@
 
 {% block body %}
 {% if members is defined %}
-<h2>Member</h2>
+<h2>Group members</h2>
 <form id="form" method="POST" action="{{ url_for('groups_details', id=members[0].group_id) }}">
   <table class="table table-hover table-sm">
     <tr>
@@ -24,6 +24,7 @@
         <td><input type="submit" class="btn btn-primary" value="Add participations"/></td>
     </tr>
   </table>
+  To add new participations check boxes on the right as needed and click Add participations.
 </form>
 {% endif %}
 {% endblock %}
