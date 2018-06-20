@@ -14,17 +14,24 @@ admin-tunnukset: username = admin, password = admin
 
 [käyttötapaukset](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/userstories.md)
 
-* Käyttäjä kirjautuu
-* Osallistujien tiedot
-* Osallistujia voi lisätä ja poistaa
-* Kävijämääristä voi tehdä tilastoja
-* Osallistuja kuuluu johonkin ryhmään/ryhmiin
-* Ryhmän vetäjät voivat merkitä ryhmän jäseniä läsnäoleviksi
-* Ryhmän jäsenille voidaan pitää vyökokeita
-* Vetäjät voivat siirtää henkilöitä ryhmästä toiseen
-* Ylläpitäjä nimittää vetäjät/ylläpitäjät
 
-Tialstoja:
-* Käyntimäärät
-* Ryhmien koot
-* ...
+## Ominaisuudet
+* Kirjautumistoiminnallisuus, jossa kaksi roolia: tavallinen käyttäjä ja pääkäyttäjä
+
+### Peruskäyttäjän toiminnallisuudet
+* Voi lisätä ja tarkastella jäseniä (myöhemmin muuttaa omia tietoja).
+* Voi tarkastella ryhmiä (ja ainakin vielä, poistaa tyhjiä ryhmiä).
+* Jäsen kuuluu johonkin ryhmään ja jäsenelle voi lisätä harjoituskäyntejä joko yksittäin tai ryhmän sisällä useammalle kerralla.
+* Alle kuukauden vanhoja harjoituskäyntejä voi poistaa.
+* Ryhmien yhteenvedossa näkyy ryhmän jäsenten määrät.
+* Jäsenen tiedoissa näkyy harjoituskertojen saldo.
+
+### Pääkäyttäjän toiminnallisuudet
+* Voi lisätä ryhmiä ja poistaa (ainakin) tyhjiä.
+* Voi poistaa jäseniä, samalla poistuvat yksittäiset harjoituskerrat.
+
+### Kehityskohteita
+* Kävijämääristä voi tehdä tilastoja.
+* Jäsenen tietoja voi muokata (käyttäjä omia, pääkäyttäjä kaikkia).
+* Pääkäyttäjät voivat siirtää henkilöitä ryhmästä toiseen.
+* Harjoituskäynnille pituus.
