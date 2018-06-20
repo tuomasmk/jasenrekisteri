@@ -17,6 +17,7 @@ admin-tunnukset: username = admin, password = admin
 
 ## Ominaisuudet
 * Kirjautumistoiminnallisuus, jossa kaksi roolia: tavallinen käyttäjä ja pääkäyttäjä
+* Toimintojen näkyvyyttä on rajattu käyttöoikeuksien mukaan.
 
 ### Peruskäyttäjän toiminnallisuudet
 * Voi lisätä ja tarkastella jäseniä (myöhemmin muuttaa omia tietoja).
