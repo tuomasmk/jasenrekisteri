@@ -36,9 +36,8 @@ def groups_create():
     return redirect(url_for("groups_index"))
 
 @app.route("/groups/<int:id>", methods=["GET", "POST"])
-@login_required(role="ANY")
-def groups_details(id):
-
+@login_required(role="ADMIN")
+def groups_practices(id):
     if request.method == "POST":
         form = request.form
         for key in form:
@@ -46,7 +45,7 @@ def groups_details(id):
                 p = Practice(datetime.strptime(form["date"], "%Y-%m-%d"), int(key))
                 db.session().add(p)
         db.session().commit()
-    return render_template("groups/details.html", 
+    return render_template("groups/practices.html", 
         members = Group.find_group_members(id),
         now = datetime.now().date())
     
@@ -59,3 +58,13 @@ def groups_delete(id):
         db.session().commit()
     
     return redirect(url_for("groups_index"))
+
+@app.route("/groups/details/<int:id>", methods=["GET"])
+@login_required(role="ANY")
+def groups_details(id):
+    group = Group.query.filter_by(id=id).first()
+    return render_template("groups/details.html", 
+        group = group,
+        coaches = Group.group_coaches(id),
+        members = len(group.members),
+        practices = Group.practices_per_group(id))

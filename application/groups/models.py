@@ -67,3 +67,35 @@ class Group(Base):
         
         for row in res:
             return row[0]
+    
+    @staticmethod
+    def practices_per_group(id):
+        stmt = text("SELECT COUNT(practice.id) "
+            + "FROM practice WHERE practice.member_id IN "
+            + "(SELECT member.id from member "
+            + "WHERE member.group_id=:id)"
+            ).params(id=id)
+        res = db.engine.execute(stmt)
+
+        for row in res:
+            return row[0]
+
+    @staticmethod
+    def group_coaches(id):
+        stmt = text("SELECT member.lastname, member.firstnames, "
+            + "phoneNumber FROM member WHERE member.group_id=:id "
+            + "AND member.id IN "
+            + "(SELECT account.member_id FROM account "
+            + "WHERE account.id IN "
+            + "(SELECT role.user_id FROM role "
+            + "WHERE role.name='ADMIN'))"
+            ).params(id=id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"lastname":row[0],
+                "firstnames":row[1],
+                "phoneNumber":row[2]})
+        
+        return response

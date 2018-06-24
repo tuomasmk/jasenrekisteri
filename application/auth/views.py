@@ -117,6 +117,34 @@ def modify_user(id):
         flash("User updated", "success")
         return redirect(url_for("members_index"))
 
+@app.route("/user/changepw/<int:id>", methods=["GET", "POST"])
+@login_required(role="ANY")
+def reset_password(id):
+    user = User.query.filter_by(member_id=id).first()
+    if user is None:
+        flash("No such user", "error")
+        return redirect(url_for("member_details", id=id))
+    current_user = User.query.filter_by(id=session["user_id"]).first()
+    if not "ADMIN" in current_user.roles() and current_user.id != user.id:
+        flash("You are not authorized to use this resource, please contact system administrator", "error")
+        return redirect(request.referrer or '/')
+    if request.method == "GET":
+        form = ResetPasswordForm()
+        return render_template("auth/resetpw.html", 
+            id = id,
+            form = form)
+    else:
+        form = ResetPasswordForm(request.form)
+        if not form.validate():
+            return render_template("auth/resetpw.html",
+            form = form,
+            id = id)
+        user.password = form.password.data
+        db.session.add(user)
+        db.session.commit()
+        flash("Password changed", "success")
+        return redirect(url_for("members_index"))
+
 def delete_admin(id):
     role = Role.query.filter_by(user_id=id, name="ADMIN").first()
     if role != None:

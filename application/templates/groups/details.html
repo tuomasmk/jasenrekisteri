@@ -1,30 +1,42 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{% if members is defined %}
-<h2>Group members</h2>
-<form id="form" method="POST" action="{{ url_for('groups_details', id=members[0].group_id) }}">
-  <table class="table table-hover table-sm">
+{% if coaches is defined %}
+<h2>{{ group.name }}</h2>
+<h3>Statistics</h3>
+<table class="table table-hover table-sm">
+  <thead>
     <tr>
-      <th>Last</th>
-      <th>First</th>
+      <th>Members</th>
+      <th>Total practices</th>
     </tr>
-    {% for member in members %}
+  </thead>
+  <tbody>
     <tr>
-        <td>{{ member.member_lastname }}</td>
-        <td>{{ member.member_firstnames }}</td>
-        <td><input id="{{ member.member_id }}" name="{{ member.member_id }}" type="checkbox"/></td>
+      <td>{{ members }}</td>
+      <td>{{ practices }}</td>
     </tr>
-    {% endfor %}
-    <tr>
-        <td>Pvm</td>
-        <td><input name="date" type="date" min="2018-01-01" max="2020-12-31" value="{{ now }}"/></td>
-    </tr>
-    <tr>
-        <td><input type="submit" class="btn btn-primary" value="Add participations"/></td>
-    </tr>
-  </table>
-  To add new participations check boxes on the right as needed and click Add participations.
-</form>
+  </tbody>
+</table>
+<h3>Coaches</h3>
+<table class="table table-hover table-sm">
+  <tr>
+    <th>Last</th>
+    <th>First</th>
+    <th>Phone number</th>
+  </tr>
+  {% for coach in coaches %}
+  <tr>
+    <td>{{ coach.lastname }}</td>
+    <td>{{ coach.firstnames }}</td>
+    <td>{{ coach.phoneNumber }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% if "ADMIN" in current_user.roles() %}
+<a href="{{ url_for('groups_practices', id=group.id) }}"><span>
+  <input type="button" class="btn btn-primary" value="Add practices">
+</span></a>
+{% endif %}
 {% endif %}
 {% endblock %}
