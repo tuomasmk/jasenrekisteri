@@ -34,10 +34,10 @@ def members_create():
 	db.session.commit()
 	return redirect(url_for("members_index"))
 
-@app.route("/members/form", methods=["GET", "POST"])
-def members_group():
-	form = MemberGroupForm()
-	return render_template('members/form.html', form=form)
+#@app.route("/members/form", methods=["GET", "POST"])	
+#def members_group():
+	#form = MemberGroupForm()
+	#return render_template('members/form.html', form=form)
 
 @app.route("/members/<int:id>", methods=["GET"])
 def members_practices(id):
@@ -65,11 +65,18 @@ def member_practices_create():
 	return redirect(url_for("members_index"))
 
 @app.route("/members/delete/<int:id>", methods=["POST"])
+@login_required(role="ANY")
 def members_delete(id):
-	m = Member.query.filter_by(id=id).first()
-	if not m is None:
-		db.session().delete(m)
-		db.session().commit()
+	member = Member.query.filter_by(id=id).first()
+	if member is None:
+		flash("No such member", "error")
+		return redirect(url_for("members_index"))
+	user = User.query.filter_by(id=session["user_id"]).first()
+	if (user.member_id is None or user.member_id != member.id) and not "ADMIN" in user.roles():
+		flash("You are not authorized to use this resource, please contact system administrator", "error")
+		return redirect(request.referrer or '/')
+	db.session().delete(member)
+	db.session().commit()
 
 	return redirect(url_for("members_index"))
 

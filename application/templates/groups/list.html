@@ -6,7 +6,7 @@
     <tr>
       <th>Group</th>
       <th>Members</th>
-      {% if "ADMIN" in current_user.roles() %}
+      {% if "ADMIN" in current_user.roles() and emptyGroups > 0 %}
       <th>Action</th>
       {% endif %}
     </tr>
@@ -14,7 +14,7 @@
     <tr>
       <td><a href="{{ url_for('groups_details', id=group.id) }}">{{ group.name }}</a></td>
       <td>{{ group.members }}</td>
-      {% if group.members == 0 %}
+      {% if "ADMIN" in current_user.roles() and group.members == 0 %}
       <td>
         <form method="POST" action="{{ url_for('groups_delete', id=group.id) }}"
           onsubmit="return confirm('This will permanently delete the group. Continue?');">

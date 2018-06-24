@@ -57,3 +57,13 @@ class Group(Base):
                 "member_lastname":row[4]})
         
         return response
+    
+    @staticmethod
+    def empty_group_count():
+        res = db.engine.execute("SELECT COUNT(groups.id) as count "
+            + "FROM groups WHERE groups.id NOT IN "
+            + "(SELECT member.group_id FROM "
+            + "member GROUP BY group_id)")
+        
+        for row in res:
+            return row[0]

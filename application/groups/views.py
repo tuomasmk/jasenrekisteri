@@ -10,7 +10,9 @@ from datetime import datetime
 @app.route("/groups/", methods=["GET"])
 @login_required(role="ANY")
 def groups_index():
-	return render_template("groups/list.html", groups = Group.find_group_member_count())
+	return render_template("groups/list.html", 
+        groups = Group.find_group_member_count(),
+        emptyGroups = Group.empty_group_count())
 
 @app.route("/groups/new/")
 @login_required(role="ANY")
@@ -20,12 +22,10 @@ def groups_form():
 @app.route("/groups/", methods=["POST"])
 @login_required(role="ADMIN")
 def groups_create():
-    error = None
     form = GroupForm(request.form)
 
     if not form.validate():
-        error = 'Validation error'
-        return render_template("groups/new.html", form = form, error=error)
+        return render_template("groups/new.html", form = form)
 
     g = Group(form.name.data)
 
@@ -36,6 +36,7 @@ def groups_create():
     return redirect(url_for("groups_index"))
 
 @app.route("/groups/<int:id>", methods=["GET", "POST"])
+@login_required(role="ANY")
 def groups_details(id):
 
     if request.method == "POST":

@@ -88,7 +88,8 @@ def reset_password(id):
     if user is None:
         flash("No such user", "error")
         return redirect(url_for("member_details", id=id))
-    elif session["user_id"] != user.id:
+    current_user = User.query.filter_by(id=session["user_id"]).first()
+    if not "ADMIN" in current_user.roles() and current_user.id != user.id:
         flash("You are not authorized to use this resource, please contact system administrator", "error")
         return redirect(request.referrer or '/')
     if request.method == "GET":
