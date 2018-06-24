@@ -53,7 +53,6 @@ def groups_details(id):
 @login_required(role="ADMIN")
 def groups_delete(id):
     g = Group.query.filter_by(id=id).first()
-    print(g.id)
     if not g is None:
         db.session().delete(g)
         db.session().commit()

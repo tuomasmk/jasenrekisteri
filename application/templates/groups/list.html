@@ -6,7 +6,9 @@
     <tr>
       <th>Group</th>
       <th>Members</th>
+      {% if "ADMIN" in current_user.roles() %}
       <th>Action</th>
+      {% endif %}
     </tr>
     {% for group in groups %}
     <tr>

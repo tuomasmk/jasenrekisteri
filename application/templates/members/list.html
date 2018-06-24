@@ -8,8 +8,10 @@
         <th>Firstname</td>
         <th>Lastname</td>
         <th>Group</td>
-        <th>Practices</th>
-        <th>Details</td>
+        <th>Practice Count</th>
+        {% if "ADMIN" in current_user.roles() or current_user.member_id != None %}
+          <th>Actions</th>
+        {% endif %}
       </tr>
     </thead>
     {% if members_w_group is defined %}
@@ -20,15 +22,31 @@
         <td>{{ member.lastname }}</td>
         <td><a href="{{ url_for('groups_details', id=member.groupId)}}">{{ member.groupName }}</a></td>
         <td>{{ member.practiceCount }}</td>
-        <td><a href="{{ member.id }}">Practices</a></td>
-        {% if "ADMIN" in current_user.roles() %}
+<!--        <td><a href="{{ member.id }}">Practices</a></td>!-->
         <td>
-          <form method="POST" action="{{ url_for('members_delete', id=member.id) }}"
-            onsubmit="return confirm('This will permanently delete the member and all of its practices. Do you really want to delete?');">
-            <input type="submit" class="btn btn-danger btn-sm" value="Delete">
-          </form>
+          <div class="row">
+            <div class="col-xs-6 text-left ml-1 mr-1">
+              <div class="delete">
+                {% if "ADMIN" in current_user.roles() %}
+                <form method="POST" action="{{ url_for('members_delete', id=member.id) }}"
+                  onsubmit="return confirm('This will permanently delete the member and all of its practices. Do you really want to delete?');"
+                  display="inline">
+                  <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                </form>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-xs-6 text-right ml-1 mr-1">
+              <div class"modify">
+                {% if "ADMIN" in current_user.roles() or current_user.member_id == member.id %}
+                <a href="{{ url_for('member_details', id=member.id) }}"><span>
+                  <input type="button" value = "Modify"
+                    class="btn btn-primary btn-sm" display="inline"/></span></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
         </td>
-        {% endif %}
       </tr>
     </tbody>
     {% endfor %}

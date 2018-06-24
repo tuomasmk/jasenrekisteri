@@ -12,7 +12,6 @@ class Grade(Base):
 class Member(Base):
     firstnames = db.Column(db.String(144), nullable=False)
     lastname = db.Column(db.String(144), nullable=False)
-    grade = db.Column(db.Integer, db.ForeignKey('grade.id'))
     email = db.Column(db.String(144))
     phoneNumber = db.Column(db.String(20))
     address = db.Column(db.String(144))
@@ -21,10 +20,10 @@ class Member(Base):
     city = db.Column(db.String(144))
 
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
+    group = db.relationship("Group")
+    grade_id = db.Column(db.Integer, db.ForeignKey('grade.id'))
+    grade = db.relationship("Grade")
     practices = db.relationship("Practice", cascade="all, delete, delete-orphan", backref='practice', lazy=True)
-#    practices = db.relationship("Practice",
-#        secondary=practice_member_table,
-#        back_populates="Members")
 
     def __init__(self, firstnames, lastname, group_id):
         self.firstnames = firstnames
@@ -47,8 +46,6 @@ class Member(Base):
 
         response = []
         for row in res:
-            print(row[0])
-            print(row[1])
             response.append({"groupId":row[0], "groupName":row[1], 
                 "id":row[2], "firstnames":row[3],
                 "lastname":row[4], "practiceCount":row[5]})

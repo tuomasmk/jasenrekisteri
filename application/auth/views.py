@@ -1,15 +1,15 @@
-from flask import render_template, request, redirect, url_for
+from flask import flash, render_template, request, redirect, url_for, session
 from flask_login import login_user, logout_user
 
-from application import app
+from application import app, db, login_required
 from application.auth.models import User
-from application.auth.forms import LoginForm
+from application.auth.forms import LoginForm, CreateUserForm, ResetPasswordForm
+from application.members.models import Member
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
         next = request.args.get("next")
-        print(next)
         form = LoginForm()
         form.redirectUrl.data = next
         return render_template("auth/loginform.html", form = form)
@@ -24,12 +24,8 @@ def auth_login():
     login_user(user)
 
     next = form.redirectUrl.data
-    print(next)
-    print("Next if")
     if next != None:
-        print("Not None")
         if next != '':
-            print("Not empty")
             return redirect(next)
     return redirect(url_for("index"))
     
@@ -38,3 +34,75 @@ def auth_login():
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))
+
+@app.route("/user/<int:id>", methods=["GET", "POST"])
+@login_required(role="ANY")
+def create_user(id):
+    member = Member.query.filter_by(id=id).first()
+    if member is None:
+        flash("No such member", "error")
+        return redirect(url_for("members_index"))
+    user = User.query.filter_by(id=session["user_id"]).first()
+    print("User_id: ", user.id)
+    print("User.name: ", user.name)
+    if (user.member_id is None or user.member_id != member.id) and not "ADMIN" in user.roles():
+        flash("You are not authorized to use this resource, please contact system administrator", "error")
+        return redirect(request.referrer or '/')
+    if request.method == "GET":
+        user = User.query.filter_by(member_id=id).first()
+        form = CreateUserForm
+        form = CreateUserForm(obj=user)
+        if form.name.data is None or form.name.data == '':
+            form.name.data = member.firstnames
+        return render_template("auth/createuser.html",
+                form = form,
+                id = id)
+    if request.method == "POST":
+        form = CreateUserForm(request.form)
+
+        if not form.validate():
+            return render_template("auth/createuser.html", 
+            form = form,
+            id = id)
+
+        if not db.session.query(User.id).filter_by(username=form.username.data).scalar() is None:
+            flash("User with the same username already exists", "error")
+            return render_template("auth/createuser.html",
+                form = form,
+                id = id)
+        if not db.session.query(User.id).filter_by(member_id=id).scalar() is None:
+            flash("User for this member already exists", "error")
+            return redirect(url_for("member_details", id=id))
+        user = User(form.name.data, form.username.data, form.password.data)
+        form.member.data = member
+        form.populate_obj(user)
+        db.session().add(user)
+        db.session.commit()
+        flash("User created", "success")
+        return redirect(url_for("members_index"))
+
+@app.route("/user/resetpw/<int:id>", methods=["GET", "POST"])
+@login_required(role="ANY")
+def reset_password(id):
+    user = User.query.filter_by(member_id=id).first()
+    if user is None:
+        flash("No such user", "error")
+        return redirect(url_for("member_details", id=id))
+    elif session["user_id"] != user.id:
+        flash("You are not authorized to use this resource, please contact system administrator", "error")
+        return redirect(request.referrer or '/')
+    if request.method == "GET":
+        form = ResetPasswordForm()
+        return render_template("auth/resetpw.html", 
+            id = id,
+            form = form)
+    else:
+        form = ResetPasswordForm(request.form)
+        if not form.validate():
+            return render_template("auth/resetpw.html",
+            form = form,
+            id = id)
+        form.populate_obj(user)
+        db.session.commit()
+        flash("Password updated", "success")
+        return redirect(url_for("members_index"))

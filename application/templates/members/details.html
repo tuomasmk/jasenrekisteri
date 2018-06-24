@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<h2>Modify member</h2>
+<form method="POST" action="{{ url_for('member_details', id=id) }}">
+	<table>
+		{% for field in details %}
+		<tr>
+			<td>
+				{{ field.label }}
+			</td>
+			<td>
+				{{ field }}
+			</td>
+			<td>
+				<ul>
+					{% for error in field.errors %}
+					<li>{{ error }}</li>
+					{%endfor%}
+				</ul>
+			</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td colspan="3">
+				<input type="submit" class="btn btn-primary" value="Update member"/>
+			</td>
+		</tr>
+</form>
+{% if user == None %}
+	<form method="GET" action="{{ url_for('create_user', id=id) }}">
+		<input type="submit" class="btn btn-primary" value="Create user for this member"/>
+	</form>
+{% else %}
+	<form method="GET" action="{{ url_for('reset_password', id=id) }}">
+		<input type="submit" class="btn btn-primary" value="Reset password"/>
+	</form>
+{% endif %}
+{% endblock %}

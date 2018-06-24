@@ -4,9 +4,24 @@
 <h2>Add a new member</h2>
 <form method="POST" action="{{ url_for('members_create') }}">
 	<table>
+		{% for field in form %}
 		<tr>
 			<td>
-				{{ form.firstnames.label }}
+				{{ field.label }}
+			</td>
+			<td>
+				{{ field }}
+			</td>
+			<td>
+				<ul>
+					{% for error in field.errors %}
+					<li>{{ error }}</li>
+					{%endfor%}
+				</ul>
+			</td>
+		</tr>
+		{% endfor %}
+<!--				{{ form.firstnames.label }}
 			</td>
 			<td>
 				{{ form.firstnames }}
@@ -39,16 +54,16 @@
 				{{ form.csfr_token }}
 			</td>
 			<td>
-				{{ form.grouplist }}
+				{{ form.group }}
 			</td>
 			<td>
 				<ul>
-					{% for error in form.grouplist.errors %}
+					{% for error in form.group.errors %}
 					<li>{{ error }}</li>
 					{%endfor%}
 				</ul>
 			</td>
-		</tr>
+		</tr>!-->
 		<tr>
 			<td colspan="3">
 				<input type="submit" class="btn btn-primary" value="Add a new member"/>

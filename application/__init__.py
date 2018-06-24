@@ -67,13 +67,58 @@ from application.auth import models
 from application.auth import views
 
 from application.auth.models import User
+from application.auth.models import Role
+from application.members.models import Grade
 
 @login_manager.user_loader
 def load_user(user_id):
     return  User.query.get(user_id)
 
 #create db if it does not exist
+from sqlalchemy.sql import text
 try:
     db.create_all()
+    print("Db created!")
+    if not os.environ.get("HEROKU"):
+        print("Not Heroku")
+        if db.session.query(User.id).filter_by(name='testi').scalar() is None:
+            print("No testi")
+            db.engine.execute(text("INSERT INTO account "
+                + "(name, username, password) "
+                + "VALUES ('testi', 'testi', 'testi')"))
+            print("Testi added")
+        admin_id = db.session.query(User.id).filter_by(name='admin').scalar()
+        if admin_id is None:
+            print("No admin")
+            db.engine.execute(text("INSERT INTO account "
+                + "(name, username, password) "
+                + "VALUES ('admin', 'admin', 'admin')"))
+            print("Admin added")
+        if db.session.query(Role.id).filter_by(user_id=admin_id).scalar() is None:
+            db.engine.execute(text("INSERT INTO role "
+                + "(name, user_id) "
+                + "VALUES ('ADMIN', :id)")
+                .params(id=admin_id))
+    if db.session.query(Grade.id).filter_by(name='6.kyu').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('6.kyu', 'white')")
+    if db.session.query(Grade.id).filter_by(name='5.kyu').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('5.kyu', 'yellow')")
+    if db.session.query(Grade.id).filter_by(name='4.kyu').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('4.kyu', 'orange')")
+    if db.session.query(Grade.id).filter_by(name='3.kyu').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('3.kyu', 'green')")
+    if db.session.query(Grade.id).filter_by(name='2.kyu').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('2.kyu', 'blue')")
+    if db.session.query(Grade.id).filter_by(name='1.kyu').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('1.kyu', 'brown')")
+    if db.session.query(Grade.id).filter_by(name='1.dan').scalar() is None:
+        db.engine.execute("INSERT INTO grade (name, color) "
+                + "VALUES('1.dan', 'black')")
 except:
     pass

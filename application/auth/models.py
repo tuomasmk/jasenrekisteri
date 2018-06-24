@@ -1,5 +1,6 @@
 from application import db
 from application.models import Base
+from sqlalchemy import UniqueConstraint
 
 class Role(Base):
 	name = db.Column(db.String(20), nullable=False)
@@ -13,8 +14,13 @@ class User(Base):
 	username = db.Column(db.String(144), nullable=False)
 	password = db.Column(db.String(144), nullable=False)
 	userRoles = db.relationship("Role", cascade="all, delete, delete-orphan", backref='role', lazy=True)
+	
+	member_id = db.Column(db.Integer, db.ForeignKey('member.id'))
+	member = db.relationship("Member")
 
-	def __inti__(self, name, username, password):
+	UniqueConstraint('username')
+
+	def __init__(self, name, username, password):
 		self.name = name
 		self.username = username
 		self.password = password
