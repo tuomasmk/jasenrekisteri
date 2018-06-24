@@ -2,7 +2,7 @@
 
 {% block body %}
 {{ error }}
-<form method="POST" action="{{ url_for('create_user', id=id) }}">
+<form method="POST" action="{{ url_for('modify_user', id=id) }}">
   <table>
     {% for field in form %}
     <tr>
@@ -23,7 +23,7 @@
     {% endfor %}
     <tr>
       <td colspan="3">
-	<input type="submit" class="btn btn-primary" value="Create"/>
+	<input type="submit" class="btn btn-primary" value="Change"/>
       </td>
     </tr>
 </form>

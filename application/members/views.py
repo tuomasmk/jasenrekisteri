@@ -87,8 +87,8 @@ def member_details(id):
 	if member is None:
 		flash("No such member", "error")
 		return redirect(url_for("members_index"))
-	user = User.query.filter_by(id=session["user_id"]).first()
-	if (user.member_id is None or user.member_id != member.id) and not "ADMIN" in user.roles():
+	current_user = User.query.filter_by(id=session["user_id"]).first()	
+	if (current_user.member_id is None or current_user.member_id != member.id) and not "ADMIN" in current_user.roles():
 		flash("You are not authorized to use this resource, please contact system administrator", "error")
 		return redirect(request.referrer or '/')
 	if request.method == "GET":

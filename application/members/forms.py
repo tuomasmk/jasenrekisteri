@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators
-from wtforms.fields import HiddenField, IntegerField, BooleanField
+from wtforms.fields import HiddenField, IntegerField
 from wtforms.fields.html5 import DateField
 from application.groups.models import Group
 from application.members.models import Grade

@@ -32,8 +32,8 @@
 		<input type="submit" class="btn btn-primary" value="Create user for this member"/>
 	</form>
 {% else %}
-	<form method="GET" action="{{ url_for('reset_password', id=id) }}">
-		<input type="submit" class="btn btn-primary" value="Reset password"/>
+	<form method="GET" action="{{ url_for('modify_user', id=id) }}">
+		<input type="submit" class="btn btn-primary" value="Modify user"/>
 	</form>
 {% endif %}
 {% endblock %}

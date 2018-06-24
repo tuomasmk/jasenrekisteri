@@ -78,22 +78,16 @@ def load_user(user_id):
 from sqlalchemy.sql import text
 try:
     db.create_all()
-    print("Db created!")
     if not os.environ.get("HEROKU"):
-        print("Not Heroku")
         if db.session.query(User.id).filter_by(name='testi').scalar() is None:
-            print("No testi")
             db.engine.execute(text("INSERT INTO account "
                 + "(name, username, password) "
                 + "VALUES ('testi', 'testi', 'testi')"))
-            print("Testi added")
         admin_id = db.session.query(User.id).filter_by(name='admin').scalar()
         if admin_id is None:
-            print("No admin")
             db.engine.execute(text("INSERT INTO account "
                 + "(name, username, password) "
                 + "VALUES ('admin', 'admin', 'admin')"))
-            print("Admin added")
         if db.session.query(Role.id).filter_by(user_id=admin_id).scalar() is None:
             db.engine.execute(text("INSERT INTO role "
                 + "(name, user_id) "
