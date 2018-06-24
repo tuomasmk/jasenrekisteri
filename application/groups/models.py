@@ -83,7 +83,7 @@ class Group(Base):
     @staticmethod
     def group_coaches(id):
         stmt = text("SELECT member.lastname, member.firstnames, "
-            + "member.phoneNumber FROM member "
+            + "member.\"phoneNumber\" FROM member "
             + "WHERE member.group_id=:id "
             + "AND member.id IN "
             + "(SELECT account.member_id FROM account "
