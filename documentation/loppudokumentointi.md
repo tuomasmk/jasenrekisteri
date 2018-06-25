@@ -32,6 +32,14 @@ peruskäyttäjä: testi, testi
 [Asennusohje](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/Asennusohje.md)
 
 
+## Ominaisuudet / käyttötapaukset
+[Ominaisuudet](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/ominaisuudet.md)
+
+
+## Tietokantarakenne
+[Tietokantarakenne](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/tietokantarakenne.md)
+
+
 ## Sovelluksen rajoitteet, kehityskohteet, puuttuvat ominaisuudet
 * Sovelluksen taulukot ovat staattisia, eikä niitä pysty järjestämään eri sarakkeiden mukaan.
 * Osa sovelluksen toiminnallisuuksista on turhan monen klikkauksen takana.
