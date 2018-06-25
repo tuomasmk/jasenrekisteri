@@ -18,9 +18,11 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('members_index') }} ">List members</a>
                 </li>
+                {% if "ADMIN" in current_user.roles() %}
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('members_form') }} ">Add a member</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('groups_index') }} ">List groups</a>
                 </li>

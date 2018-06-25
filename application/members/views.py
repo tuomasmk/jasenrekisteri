@@ -14,7 +14,7 @@ def members_index():
 		members_w_group=Member.find_members_with_group())
 
 @app.route("/members/new/")
-@login_required(role="ANY")
+@login_required(role="ADMIN")
 def members_form():
     return render_template("members/new.html", 
 		form = MemberForm())
@@ -33,11 +33,6 @@ def members_create():
 	db.session().add(member)
 	db.session.commit()
 	return redirect(url_for("members_index"))
-
-#@app.route("/members/form", methods=["GET", "POST"])	
-#def members_group():
-	#form = MemberGroupForm()
-	#return render_template('members/form.html', form=form)
 
 @app.route("/members/<int:id>", methods=["GET"])
 def members_practices(id):
