@@ -10,7 +10,7 @@ admin-tunnukset: username = admin, password = admin
 
 [käyttö-/asennusohje](https://github.com/tuomasmk/jasenrekisteri/blob/master/user_guide.md)
 
-[tietokantakaaviohahmotelma](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/tietokantakaavio.jpg)
+[tietokantakaaviohahmotelma](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/tietokantakaavio.png)
 
 [käyttötapaukset](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/userstories.md)
 
