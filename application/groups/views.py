@@ -45,6 +45,7 @@ def groups_practices(id):
                 p = Practice(datetime.strptime(form["date"], "%Y-%m-%d"), int(key))
                 db.session().add(p)
         db.session().commit()
+        flash("Participations added", "success")
     return render_template("groups/practices.html", 
         members = Group.find_group_members(id),
         now = datetime.now().date())
