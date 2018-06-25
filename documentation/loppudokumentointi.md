@@ -25,10 +25,11 @@ Pääkäyttäjä voi tehdä toisista käyttäjistä pääkäyttäjiä muuttamall
 
 ### Demo
 [demo](https://polar-plains-24269.herokuapp.com/)
+
 pääkäyttäjä: admin, admin
 peruskäyttäjä: testi, testi
 
-[Asennusohje]( , Asennusohje)
+[Asennusohje](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/Asennusohje.md)
 
 
 ## Sovelluksen rajoitteet, kehityskohteet, puuttuvat ominaisuudet
