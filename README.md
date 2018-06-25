@@ -27,7 +27,10 @@ Pääkäyttäjä voi tehdä toisista käyttäjistä pääkäyttäjiä muuttamall
 [demo](https://polar-plains-24269.herokuapp.com/)
 
 pääkäyttäjä: admin, admin
+
 peruskäyttäjä: testi, testi
+
+Pääkäyttäjä voi tehdä jäsenille omat käyttäjät.
 
 [Asennusohje](https://github.com/tuomasmk/jasenrekisteri/blob/master/documentation/Asennusohje.md)
 
