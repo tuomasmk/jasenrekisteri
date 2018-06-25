@@ -20,19 +20,21 @@ admin-tunnukset: username = admin, password = admin
 * Toimintojen näkyvyyttä on rajattu käyttöoikeuksien mukaan.
 
 ### Peruskäyttäjän toiminnallisuudet
-* Voi lisätä ja tarkastella jäseniä (myöhemmin muuttaa omia tietoja).
-* Voi tarkastella ryhmiä (ja ainakin vielä, poistaa tyhjiä ryhmiä).
+* Voi lisätä ja tarkastella jäseniä ja muuttaa omia tietojaan.
+* Voi tarkastella ryhmiä (listaus ja lisätiedot).
 * Jäsen kuuluu johonkin ryhmään ja jäsenelle voi lisätä harjoituskäyntejä joko yksittäin tai ryhmän sisällä useammalle kerralla.
-* Alle kuukauden vanhoja harjoituskäyntejä voi poistaa.
+* Alle kuukauden vanhoja omia harjoituskäyntejä voi poistaa.
 * Ryhmien yhteenvedossa näkyy ryhmän jäsenten määrät.
-* Jäsenen tiedoissa näkyy harjoituskertojen saldo.
+* Jäsenen tiedoissa näkyy harjoituskertojen saldo (yhteenvedossa).
 
-### Pääkäyttäjän toiminnallisuudet
-* Voi lisätä ryhmiä ja poistaa (ainakin) tyhjiä.
+### Pääkäyttäjän toiminnallisuudet edellisten lisäksi
+* Voi lisätä ryhmiä ja poistaa tyhjiä.
 * Voi poistaa jäseniä, samalla poistuvat yksittäiset harjoituskerrat.
+* Voi luoda jäsenelle käyttäjän.
+* Voi tehdä jäsenestä pääkäyttäjän.
+* Voi lisätä harjoituskäyntejä yksittäin tai ryhmässä.
+* Jäsenen voi siirtää ryhmästä toiseen.
 
 ### Kehityskohteita
 * Kävijämääristä voi tehdä tilastoja.
-* Jäsenen tietoja voi muokata (käyttäjä omia, pääkäyttäjä kaikkia).
-* Pääkäyttäjät voivat siirtää henkilöitä ryhmästä toiseen.
-* Harjoituskäynnille pituus.
+* Harjoituskäynnin pituuden hyödyntäminen.
