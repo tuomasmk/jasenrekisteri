@@ -7,7 +7,7 @@ Sovellus vaatii kirjautumisen.
 
 Sovelluksessa navigointi hoituu pääasiassa yläpalkissa olevan valikon avaulla. Mikäli näyttö on pieni, valikko romahtaa ja sen saa uudestaan auki painamalla ikonia yläpalkissa. Navigointipalkkia täydentävät sivuilla olevat linkit ja painikkeet. Painikkeet on pyritty nimeämään mahdollisimman loogisesti, jotta niiden käyttäminen olisi intuitiivista.
 
-Käyttäjälle on näkyvissä vain sellaiset toiminnot, joita hänellä on oikeus käyttää.
+Käyttäjälle on näkyvissä vain sellaiset toiminnot, joita hänellä on oikeus käyttää. Käyttäjät näkevät vain tiedot, joita he tarvitsevat, eivätkä esimerkiksi toistensa tietoja, nimeä ja (valmentajan) puhelinnumeroa lukuunottamatta.
 
 ## Peruskäyttäjä 
 Pääsee katsomaan seuran jäseniä ja ryhmiä. Molemmista näkymistä ryhmän nimeä klikkaamalla pääsee katsomaan ryhmän lisätietoja. Ryhmän lisätiedoissa kerrotaan jäsenmäärä, ryhmän jäsenten harjoituskertojen summa ja seuran ohjaajien yhteystiedot.
@@ -45,6 +45,7 @@ Pääkäyttäjä voi tehdä jäsenille omat käyttäjät.
 
 ## Sovelluksen rajoitteet, kehityskohteet, puuttuvat ominaisuudet
 * Sovelluksen taulukot ovat staattisia, eikä niitä pysty järjestämään eri sarakkeiden mukaan.
+* Hakutoiminnallisuus puuttuu.
 * Osa sovelluksen toiminnallisuuksista on turhan monen klikkauksen takana.
 * Toiminnallisuuksien jakamista peruskäyttäjien ja pääkäyttäjien välillä pitäisi parantaa.
 * Virheilmoitus ei aina ole kovin informatiivinen, mikäli käyttäjä yrittää mennä suoraan osoitteeseen, johon hänellä ei ole riittäviä oikeuksia.
