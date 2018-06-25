@@ -3,6 +3,7 @@ Tietokannan rakenne on kuvattu [tietokantakaaviossa](https://github.com/tuomasmk
 Tietokanta on pääosin normalisoitu, ainoa poikkeus on käyttäjän sisältämä nimi, joka on päällekkäinen jäsenen tietojen kanssa. Poikkeus johtu siitä, että käyttäjä voi olla olemassa ilman jäsentä.
 
 Create table lauseet:
+```
 CREATE TABLE grade (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -11,8 +12,9 @@ CREATE TABLE grade (
 	color VARCHAR(20) NOT NULL, 
 	PRIMARY KEY (id)
 )
+```
 
-
+```
 CREATE TABLE groups (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -20,8 +22,9 @@ CREATE TABLE groups (
 	name VARCHAR(144) NOT NULL, 
 	PRIMARY KEY (id)
 )
+```
 
-
+```
 CREATE TABLE member (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -40,8 +43,9 @@ CREATE TABLE member (
 	FOREIGN KEY(group_id) REFERENCES groups (id), 
 	FOREIGN KEY(grade_id) REFERENCES grade (id)
 )
+```
 
-
+```
 CREATE TABLE practice (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -52,8 +56,9 @@ CREATE TABLE practice (
 	PRIMARY KEY (id), 
 	FOREIGN KEY(member_id) REFERENCES member (id)
 )
+```
 
-
+```
 CREATE TABLE account (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -65,8 +70,9 @@ CREATE TABLE account (
 	PRIMARY KEY (id), 
 	FOREIGN KEY(member_id) REFERENCES member (id)
 )
+```
 
-
+```
 CREATE TABLE role (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -76,3 +82,4 @@ CREATE TABLE role (
 	PRIMARY KEY (id), 
 	FOREIGN KEY(user_id) REFERENCES account (id)
 )
+```
