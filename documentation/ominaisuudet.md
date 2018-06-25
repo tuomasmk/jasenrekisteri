@@ -25,23 +25,27 @@
 ## Tarvittavat SQL-lauseet
 
 ### Ryhmän jäsenten hakeminen
+```
 SELECT groups.id, groups.name,
 member.id, member.firstnames, member.lastname
 FROM groups LEFT JOIN member
 ON member.group_id = groups.id
 WHERE groups.id = :id
 ORDER BY member.lastname
+```
 
 ### Ryhmän jänsenten harjoituskäyntien summa
+```
 SELECT COUNT(practice.id)
 FROM practice WHERE practice.member_id IN
 (SELECT member.id from member
 WHERE member.group_id=:id)
+```
 
 ### Ryhmän valmentajien hakeminen
 Valmentajuuden ehtona on, että käyttäjä kuuluu ryhmään ja on pääkäyttäjä.
 
-
+```
 SELECT member.lastname, member.firstnames,
 member.\"phoneNumber\" FROM member
 WHERE member.group_id=:id
@@ -50,4 +54,4 @@ AND member.id IN
 WHERE account.id IN
 (SELECT role.user_id FROM role
 WHERE role.name='ADMIN'))
-
+```
